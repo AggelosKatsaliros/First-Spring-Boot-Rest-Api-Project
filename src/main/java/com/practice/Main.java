@@ -9,9 +9,22 @@ import java.util.List;
 
 @SpringBootApplication
 @RestController
+//@RequestMapping("api/v1/customers")
 public class Main {
+
+    private final CustomerRepository customerRepository;
+
+    public Main(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
     public static void main (String[] args ){
         SpringApplication.run(Main.class, args);
+    }
+
+    @GetMapping("/api/v1/customers")
+    public List<Customer> getCustomers(){
+        return customerRepository.findAll();
     }
     @GetMapping("/greet")
     public GreetResponse greet(){
